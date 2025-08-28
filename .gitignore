@@ -1,0 +1,49 @@
+### Java ###
+*.class
+*.war
+*.ear
+*.jar
+
+### Spring Boot ###
+/target/
+/build/
+/out/
+/!.mvn/wrapper/maven-wrapper.jar
+
+### Maven ###
+log/
+/logs/
+/*.log
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapperDownloader.java
+
+### Gradle ###
+.gradle/
+/build/
+
+### IDEs ###
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+### OS-specific ###
+.DS_Store
+Thumbs.db
+
+### Others ###
+/*.swp
+*~
