@@ -28,7 +28,6 @@ public class EvaluationInstrument {
 
 	public EvaluationInstrument() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public EvaluationInstrument(Long id, int points, String name, Course course) {

@@ -11,11 +11,13 @@ public class SyllabysDto {
 	public SyllabysDto() {
 		super();
 	}
+	
 	public SyllabysDto(Syllabus syllabus) {
 		this.id = syllabus.getId();
 		this.description = syllabus.getDescription();
 		this.courseId = syllabus.getCourse().getId();
     }
+	
 	public Long getId() {
 		return id;
 	}

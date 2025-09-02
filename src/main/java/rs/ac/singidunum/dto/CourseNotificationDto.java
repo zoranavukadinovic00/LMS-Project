@@ -18,6 +18,11 @@ public class CourseNotificationDto {
 
 	private String courseName;
 	
+	
+	public CourseNotificationDto() {
+		super();
+	}
+
 	public CourseNotificationDto(CourseNotification courseNotification) {
 		id = courseNotification.getId();
 		courseId = courseNotification.getCourse().getId();

@@ -8,11 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import rs.ac.singidunum.dto.CourseNotificationDto;
 import rs.ac.singidunum.model.CourseNotification;
 import rs.ac.singidunum.model.User;
@@ -48,8 +53,13 @@ public class CourseNotificationController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 	
-	@GetMapping("/professorNotifications/{professorId}")
-    public ResponseEntity<List<CourseNotificationDto>> getNotificationsByProfessor(@PathVariable Long professorId) {
+	@GetMapping("/professorNotifications")
+    public ResponseEntity<List<CourseNotificationDto>> getNotificationsByProfessor(@AuthenticationPrincipal UserDetails user) {
+		
+		String username = user.getUsername();
+		User foundUser = userService.findByUsername(username);
+		long professorId = foundUser.getId();
+		
         List<CourseNotification> courseNotifications = courseNotificationService.getNotificationsByProfessorId(professorId);
 
         List<CourseNotificationDto> dtos = new ArrayList<>();
@@ -58,5 +68,48 @@ public class CourseNotificationController {
         }
 
         return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+	
+	
+	@GetMapping("/by_course/{courseId}")
+	public ResponseEntity<List<CourseNotificationDto>> getStudentPassedCourses(@PathVariable("courseId")long courseId) {
+		
+		List<CourseNotification> courseNotifications = courseNotificationService.getNotificationsByCourseId(courseId);
+
+		List<CourseNotificationDto> dtos = new ArrayList<CourseNotificationDto>();
+
+		for (CourseNotification cn : courseNotifications) {
+			dtos.add(new CourseNotificationDto(cn));
+		}
+
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	@PostMapping
+    public ResponseEntity<?> create(@Valid @RequestBody CourseNotificationDto dto) {
+        CourseNotification courseNotification = courseNotificationService.save(dto);
+        if (courseNotification == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        CourseNotificationDto returnDto = new CourseNotificationDto(courseNotification);
+        return new ResponseEntity<>(returnDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody CourseNotificationDto dto) {
+        dto.setId(id);
+
+        CourseNotification courseNotification = courseNotificationService.update(dto);
+        if (courseNotification == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        CourseNotificationDto returnDto = new CourseNotificationDto(courseNotification);
+        return new ResponseEntity<>(returnDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        courseNotificationService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

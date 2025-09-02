@@ -12,6 +12,9 @@ import rs.ac.singidunum.model.CourseNotification;
 @Repository
 public interface CourseNotificationRepository extends JpaRepository<CourseNotification, Long> {
 
+	@Query("SELECT cn FROM CourseNotification cn WHERE cn.course.id = :courseId")
+	List<CourseNotification> findByCourse(@Param("courseId") Long courseId);
+	
 	@Query("""
 			    SELECT cn
 			    FROM CourseNotification cn
@@ -32,6 +35,6 @@ public interface CourseNotificationRepository extends JpaRepository<CourseNotifi
 		        WHERE pc.professor.id = :professorId
 		    )
 		""")
-		List<CourseNotification> findAllByProfessorId(@Param("professorId") Long professorId);
+		List<CourseNotification> findAllNotificationByProfessorId(@Param("professorId") Long professorId);
 
 }
