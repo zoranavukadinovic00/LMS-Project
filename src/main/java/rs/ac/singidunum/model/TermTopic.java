@@ -10,30 +10,38 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Syllabus {
+public class TermTopic {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private  Long id;
 	
 	@Column(name = "description", nullable = false)
 	private String description;
+	
+	@Column(name = "term_number", nullable = false)
+	private  int termNumber;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id")
 	private Course course;
 
-	public Syllabus() {
+	public TermTopic() {
 		super();
-		
+		// TODO Auto-generated constructor stub
 	}
 
-	public Syllabus(Long id, String description, Course course) {
+	
+	public TermTopic(Long id, String description, int termNumber, Course course) {
 		super();
 		this.id = id;
 		this.description = description;
+		this.termNumber = termNumber;
 		this.course = course;
 	}
+
+
+	
 
 	public Long getId() {
 		return id;
@@ -50,6 +58,17 @@ public class Syllabus {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public int getTermNumber() {
+		return termNumber;
+	}
+
+
+	public void setTermNumber(int termNumber) {
+		this.termNumber = termNumber;
+	}
+
 
 	public Course getCourse() {
 		return course;

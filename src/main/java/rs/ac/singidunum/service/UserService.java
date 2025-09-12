@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import rs.ac.singidunum.dto.RegisterRequest;
+import rs.ac.singidunum.dto.UserDto;
 import rs.ac.singidunum.model.User;
 import rs.ac.singidunum.model.enums.UserType;
 import rs.ac.singidunum.repository.UserRepository;
@@ -60,5 +61,25 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+    
+    public User update(UserDto dto) {
+    	if (dto == null || dto.getId() == null) {
+            return null;
+        }
+    	
+    	User user = userRepository.findById(dto.getId()).orElse(null);
+    	if(user == null) {
+    		return null;
+    	}
+    	
+    	user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setJmbg(dto.getJmbg());
+        user.setName(dto.getName());     
+        user.setSurname(dto.getSurname());  
+        user.setBiography(dto.getBiography());
+
+        return userRepository.save(user);
     }
 }

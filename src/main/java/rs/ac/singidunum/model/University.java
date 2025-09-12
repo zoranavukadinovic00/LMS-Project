@@ -1,5 +1,7 @@
 package rs.ac.singidunum.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,13 +33,17 @@ public class University {
 	
 	@Column(name = "description", nullable = false)
 	private String description;
+	
+	@Column(name = "date_of_establishment", nullable = false)
+	private LocalDate  dateOfEstablishment;
 
 	public University() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public University(Long id, String name, Address address, User rector, String contact, String description) {
+	public University(Long id, String name, Address address, User rector, String contact, String description,
+			LocalDate dateOfEstablishment) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -45,6 +51,7 @@ public class University {
 		this.rector = rector;
 		this.contact = contact;
 		this.description = description;
+		this.dateOfEstablishment = dateOfEstablishment;
 	}
 
 	public Long getId() {
@@ -94,6 +101,18 @@ public class University {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public LocalDate getDateOfEstablishment() {
+		return dateOfEstablishment;
+	}
+
+	public void setDateOfEstablishment(LocalDate dateOfEstablishment) {
+		this.dateOfEstablishment = dateOfEstablishment;
+	}
+
+	
+
+	
 	
 	
 

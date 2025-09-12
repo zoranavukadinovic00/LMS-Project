@@ -1,53 +1,28 @@
-package rs.ac.singidunum.model;
+package rs.ac.singidunum.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import rs.ac.singidunum.model.StudentOnYear;
+import rs.ac.singidunum.model.StudyProgram;
+import rs.ac.singidunum.model.User;
 
-@Entity
-public class StudentOnYear {
+public class StudentOnYearDto {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id")
 	private User student;
-	
-	@Column(name = "date_of_enrollment", nullable = false)
 	private int dateOfEnrollment;
-	
-	@Column(name = "index_number", nullable = false)
 	private int indexNumber;
-	
-	@Column(name = "year", nullable = false)
 	private int year;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "study_program_id")
 	private StudyProgram studyProgram;
-	
-	@Column(name = "stud_index", nullable = false)
 	private String index;
+	private Double averageGrade;
 	
-	
-	@Column(name = "average_grade", nullable = false)
-	private double averageGrade;
-
-
-	public StudentOnYear() {
+	public StudentOnYearDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public StudentOnYear(Long id, User student, int dateOfEnrollment, int indexNumber, int year,
-			StudyProgram studyProgram, String index, double averageGrade) {
+	
+	public StudentOnYearDto(Long id, User student, int dateOfEnrollment, int indexNumber, int year,
+			StudyProgram studyProgram, String index, Double averageGrade) {
 		super();
 		this.id = id;
 		this.student = student;
@@ -57,9 +32,18 @@ public class StudentOnYear {
 		this.studyProgram = studyProgram;
 		this.index = index;
 		this.averageGrade = averageGrade;
+		}
+	
+	public StudentOnYearDto(StudentOnYear s) {
+	    this.id = s.getId();
+	    this.student = s.getStudent();
+	    this.dateOfEnrollment = s.getDateOfEnrollment();
+	    this.indexNumber = s.getIndexNumber();
+	    this.year = s.getYear();
+	    this.studyProgram = s.getStudyProgram();
+	    this.index = s.getIndex();
+	    this.averageGrade = s.getAverageGrade();
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -117,17 +101,18 @@ public class StudentOnYear {
 		this.index = index;
 	}
 
-	public double getAverageGrade() {
+	public Double getAverageGrade() {
 		return averageGrade;
 	}
 
-	public void setAverageGrade(double averageGrade) {
+	public void setAverageGrade(Double averageGrade) {
 		this.averageGrade = averageGrade;
 	}
 
 	
 
 	
+
 	
 	
 }

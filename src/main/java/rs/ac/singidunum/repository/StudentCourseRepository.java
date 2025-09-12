@@ -21,7 +21,8 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse, Lo
 
 	Optional<StudentCourse> findFirstByStudentId_IdAndCourseId_Id(Long studentId, Long courseId);
 
-	
+	@Query("SELECT sc FROM StudentCourse sc WHERE sc.course.id = :courseId")
+	List<StudentCourse> findStudentsByCourseId(@Param("courseId") Long courseId);
 
 
 }

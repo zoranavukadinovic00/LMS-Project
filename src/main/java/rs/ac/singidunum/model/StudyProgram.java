@@ -1,5 +1,9 @@
 package rs.ac.singidunum.model;
 
+import java.util.List;
+
+import javax.security.auth.Subject;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,7 +34,7 @@ public class StudyProgram {
 	@OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id")
 	private User manager;
-
+	
 
 	public StudyProgram() {
 		super();
@@ -38,7 +42,11 @@ public class StudyProgram {
 	}
 
 
-	public StudyProgram(Long id, String name, Faculty faculty, String description, User manager) {
+	
+
+
+	public StudyProgram(Long id, String name, Faculty faculty, String description, User manager,
+			List<Subject> subjects) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -46,6 +54,9 @@ public class StudyProgram {
 		this.description = description;
 		this.manager = manager;
 	}
+
+
+
 
 
 	public Long getId() {
@@ -96,6 +107,9 @@ public class StudyProgram {
 	public void setManager(User manager) {
 		this.manager = manager;
 	}
+
+
+
 	
 	
 }

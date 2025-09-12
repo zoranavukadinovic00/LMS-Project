@@ -41,6 +41,10 @@ public class StudentCourseService {
     	return studentCourseRepository.findPassedCoursesByStudentId(studentId);
     }
 
+    public List<StudentCourse> findStudentsByCourseId(long studentId){
+    	return studentCourseRepository.findStudentsByCourseId(studentId);
+    }
+    
     
 
    
