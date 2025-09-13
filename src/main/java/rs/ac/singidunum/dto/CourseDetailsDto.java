@@ -7,7 +7,7 @@ public class CourseDetailsDto {
     private Long id;
 	private String name;
 	private int espbPoints;
-	public boolean mandatory;
+	private boolean mandatory;
 	private int numberOfLectures;
 	private int numberOfExercises;
 	private int otherFormsOfTeaching;

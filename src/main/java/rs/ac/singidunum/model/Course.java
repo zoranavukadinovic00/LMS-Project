@@ -19,7 +19,7 @@ public class Course {
 	private int espbPoints;
 
 	@Column(name = "mandatory", nullable = false)
-	public boolean mandatory;
+	private boolean mandatory;
 	
 	@Column(name = "number_of_lectures", nullable = false)
 	private int numberOfLectures;
@@ -41,12 +41,12 @@ public class Course {
 
 	
 	
+	
 	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 
 	public Course(Long id, String name, int espbPoints, boolean mandatory, int numberOfLectures, int numberOfExercises,
 			int otherFormsOfTeaching, int researchWork, int otherClasses, String teachingMaterials) {
@@ -62,8 +62,6 @@ public class Course {
 		this.otherClasses = otherClasses;
 		this.teachingMaterials = teachingMaterials;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -144,8 +142,7 @@ public class Course {
 	public void setTeachingMaterials(String teachingMaterials) {
 		this.teachingMaterials = teachingMaterials;
 	}
-	
-	
+
 	
 	
 }

@@ -33,4 +33,7 @@ public class StudyProgramService {
     public void delete(StudyProgram studyProgram) {
     	studyProgramrepository.delete(studyProgram);
     }
+    public List<StudyProgram> getAllByFacultyId(Long facultyId) {
+        return studyProgramrepository.findByFaculty_IdOrderByNameAsc(facultyId);
+    }
 }
