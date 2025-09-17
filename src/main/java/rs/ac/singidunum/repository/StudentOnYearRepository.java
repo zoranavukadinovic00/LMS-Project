@@ -32,5 +32,7 @@ public interface StudentOnYearRepository extends JpaRepository<StudentOnYear, Lo
             @Param("maxAverageGrade") Double maxAverageGrade, Pageable pageable);
 	
     List<StudentOnYear> findByStudent_Id(Long studentId);
+	
+	
 
 }

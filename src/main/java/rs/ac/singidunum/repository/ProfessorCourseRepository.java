@@ -12,8 +12,9 @@ import rs.ac.singidunum.model.ProfessorCourse;
 @Repository
 public interface ProfessorCourseRepository extends JpaRepository<ProfessorCourse, Long> {
 
-	@Query("SELECT pc FROM ProfessorCourse pc WHERE pc.professor.id = :professorId")
-	List<ProfessorCourse> findAllByProfessorId(@Param("professorId") Long professorId);
+    @Query("SELECT pc FROM ProfessorCourse pc WHERE pc.professor.id = :professorId")
+    List<ProfessorCourse> findAllByProfessorId(@Param("professorId") Long professorId);
 
-
+    // ✨ Dodata metoda za pronalaženje po profesoru
+    List<ProfessorCourse> findByProfessor_Id(Long professorId);
 }

@@ -13,6 +13,9 @@ import rs.ac.singidunum.model.CourseOnProgram;
 @Repository
 public interface CourseOnProgramRepository extends JpaRepository<CourseOnProgram, Long> {
 
-	@Query("SELECT cop.course FROM CourseOnProgram cop WHERE cop.studyProgram.id = :programId")
-	List<Course> findCoursesByStudyProgramId(@Param("programId") Long programId);
+    @Query("SELECT cop.course FROM CourseOnProgram cop WHERE cop.studyProgram.id = :programId")
+    List<Course> findCoursesByStudyProgramId(@Param("programId") Long programId);
+    
+    // Dodata metoda za kaskadno brisanje
+    void deleteByStudyProgramId(Long studyProgramId);
 }

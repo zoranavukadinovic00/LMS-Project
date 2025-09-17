@@ -9,5 +9,8 @@ import rs.ac.singidunum.model.StudyProgram;
 @Repository
 public interface StudyProgramRepository extends JpaRepository<StudyProgram, Long> {
 
-	List<StudyProgram> findByFaculty_IdOrderByNameAsc(Long facultyId);
+    List<StudyProgram> findByFaculty_IdOrderByNameAsc(Long facultyId);
+    
+    // ✨ Dodata metoda za pronalaženje studijskog programa po menadžeru
+    List<StudyProgram> findByManager_Id(Long managerId);
 }
