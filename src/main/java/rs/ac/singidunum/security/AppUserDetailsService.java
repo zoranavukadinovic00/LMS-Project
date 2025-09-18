@@ -1,7 +1,10 @@
+// src/main/java/rs/ac/singidunum/security/AppUserDetailsService.java
+
 package rs.ac.singidunum.security;
 
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,12 +28,12 @@ public class AppUserDetailsService implements UserDetailsService {
         User u = repo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + u.getType().name()));
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + u.getType().name()));
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(u.getUsername())
                 .password(u.getPassword())
-                .authorities(authorities)
+                .authorities(authorities) 
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

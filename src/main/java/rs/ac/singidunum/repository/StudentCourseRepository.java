@@ -19,7 +19,6 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse, Lo
     @Query("SELECT sc FROM StudentCourse sc WHERE sc.student.id = :studentId AND sc.status = 'PASSED'")
     List<StudentCourse> findPassedCoursesByStudentId(@Param("studentId") Long studentId);
     
-    // ✨ Dodata metoda za pronalaženje svih kurseva za datog studenta
     List<StudentCourse> findByStudent_Id(Long studentId); 
 
     Optional<StudentCourse> findFirstByStudent_IdAndCourse_Id(Long studentId, Long courseId);

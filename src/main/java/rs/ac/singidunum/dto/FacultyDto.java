@@ -154,7 +154,6 @@ public class FacultyDto {
             this.address = addressBuilder.toString();
         }
 
-        // Dean (null-safe)
         if (f.getDean() != null) {
             this.deanDetails = new DeanDto();
             this.deanDetails.id = f.getDean().getId();

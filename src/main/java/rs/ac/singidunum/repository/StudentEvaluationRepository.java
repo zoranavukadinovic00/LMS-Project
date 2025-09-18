@@ -10,6 +10,5 @@ import rs.ac.singidunum.model.StudentEvaluation;
 @Repository
 public interface StudentEvaluationRepository extends JpaRepository<StudentEvaluation, Long> {
     
-    // ✨ Dodata metoda za pronalaženje evaluacija po studentu
     List<StudentEvaluation> findByStudentCourse_Student_Id(Long studentId);
 }

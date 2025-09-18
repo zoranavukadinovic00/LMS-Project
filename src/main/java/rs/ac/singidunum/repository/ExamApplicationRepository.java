@@ -10,6 +10,5 @@ import rs.ac.singidunum.model.ExamApplication;
 @Repository
 public interface ExamApplicationRepository extends JpaRepository<ExamApplication, Long> {
 
-    // ✨ Dodata metoda za pronalaženje prijava za ispite po studentu
     List<ExamApplication> findByStudent_Id(Long studentId);
 }

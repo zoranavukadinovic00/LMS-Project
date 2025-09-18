@@ -1,11 +1,13 @@
 package rs.ac.singidunum.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import rs.ac.singidunum.dto.StudyProgramDto;
 import rs.ac.singidunum.model.StudyProgram;
 import rs.ac.singidunum.repository.CourseOnProgramRepository;
 import rs.ac.singidunum.repository.StudyProgramRepository;
@@ -22,6 +24,12 @@ public class StudyProgramService {
     public List<StudyProgram> findAll() {
         return studyProgramrepository.findAll();
     }
+    
+    public List<StudyProgramDto> findAllAsDto() {
+        return studyProgramrepository.findAll().stream()
+                .map(StudyProgramDto::new)
+                .collect(Collectors.toList());
+    }
 
     public StudyProgram findOne(Long id) {
         return studyProgramrepository.findById(id).orElse(null);
@@ -32,13 +40,9 @@ public class StudyProgramService {
         return studyProgramrepository.save(studyProgram);
     }
     
-    // Nova, sigurna metoda za brisanje
     @Transactional
     public void delete(Long id) {
-        // Prvo se brišu svi povezani kursevi
-        courseOnProgramRepository.deleteByStudyProgramId(id);
-        
-        // Zatim se briše sam studijski program
+        courseOnProgramRepository.deleteByStudyProgram_Id(id);
         studyProgramrepository.deleteById(id);
     }
 

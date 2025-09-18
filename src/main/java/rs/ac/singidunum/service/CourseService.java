@@ -1,6 +1,7 @@
 package rs.ac.singidunum.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,15 +9,17 @@ import org.springframework.stereotype.Service;
 import rs.ac.singidunum.model.Course;
 import rs.ac.singidunum.repository.CourseOnProgramRepository;
 import rs.ac.singidunum.repository.CourseRepository;
+import rs.ac.singidunum.model.CourseOnProgram; 
+
 @Service
 public class CourseService {
-	
-	@Autowired
+    
+    @Autowired
     private CourseRepository courseRepository;
-	@Autowired
+    @Autowired
     private CourseOnProgramRepository courseOnProgramRepository;
-	
-	public List<Course> findAll() {
+    
+    public List<Course> findAll() {
         return courseRepository.findAll();
     }
 
@@ -29,15 +32,17 @@ public class CourseService {
     }
 
     public void delete(Long id) {
-    	courseRepository.deleteById(id);
+        courseRepository.deleteById(id);
     }
 
     public void delete(Course course) {
-    	courseRepository.delete(course);
-    }
-    public List<Course> getAllByProgramId(Long programId){
-    	
-        return courseOnProgramRepository.findCoursesByStudyProgramId(programId);
+        courseRepository.delete(course);
     }
 
+    public List<Course> getAllByProgramId(Long programId) {
+        List<CourseOnProgram> coursesOnProgram = courseOnProgramRepository.findByStudyProgram_Id(programId);
+        return coursesOnProgram.stream()
+            .map(CourseOnProgram::getCourse)
+            .collect(Collectors.toList());
+    }
 }

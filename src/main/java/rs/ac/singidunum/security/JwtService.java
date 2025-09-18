@@ -1,8 +1,13 @@
+// src/main/java/rs/ac/singidunum/security/JwtService.java
+
 package rs.ac.singidunum.security;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +22,7 @@ import rs.ac.singidunum.model.User;
 @Service
 public class JwtService {
 
-	@Value("${jwt.secret}")
+    @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
@@ -28,9 +33,14 @@ public class JwtService {
     }
 
     public String generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getType().name()); 
+
         Date now = new Date();
         Date exp = new Date(now.getTime() + expirationMs);
+        
         return Jwts.builder()
+                .setClaims(claims) 
                 .setSubject(user.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(exp)
@@ -40,6 +50,10 @@ public class JwtService {
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+    
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
     public boolean isTokenValid(String token, String expectedUsername) {

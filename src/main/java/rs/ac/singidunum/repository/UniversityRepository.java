@@ -9,6 +9,5 @@ import rs.ac.singidunum.model.University;
 @Repository
 public interface UniversityRepository extends JpaRepository<University, Long> {
     
-    // ✨ Dodata metoda za pronalaženje univerziteta po rektoru
     Optional<University> findByRector_Id(Long rectorId);
 }

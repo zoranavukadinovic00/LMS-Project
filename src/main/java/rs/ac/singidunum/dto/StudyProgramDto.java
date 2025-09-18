@@ -15,9 +15,6 @@ public class StudyProgramDto {
 	 private String managerSurname;   
 	 private String managerEmail;
 	 
-	 
-	 
-	 
 	 public StudyProgramDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -50,9 +47,6 @@ public class StudyProgramDto {
 		 this.managerEmail = studyProgram.getManager().getEmail();
 		 
 	 }
-
-	
-
 	public Long getId() {
 		return id;
 	}

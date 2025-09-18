@@ -45,10 +45,12 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/api/faculties/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/study-programs/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/api/universities/**").hasRole("ADMIN") // ✨ Izmenjeno: SAMO ADMIN može PUT
-                    .requestMatchers(HttpMethod.DELETE, "/api/universities/**").hasRole("ADMIN") // ✨ Dodato: SAMO ADMIN može DELETE
+                    .requestMatchers(HttpMethod.PUT, "/api/universities/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/universities/**").hasRole("ADMIN")
                     .requestMatchers("/api/users/**").authenticated()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    // Dodato: Pravilo za novu ulogu STAFF
+                    .requestMatchers("/api/staff/**").hasRole("STAFF")
                     .anyRequest().authenticated()
             )
             .authenticationProvider(daoAuthProvider())

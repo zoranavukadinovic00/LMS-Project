@@ -51,6 +51,13 @@ INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (18, 'rector12',   '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'rector1@example.com',   '0303997712345', 'Ivan', 'Petrić',  'University rector.', 'PROFESSOR');
 
 
+-- Administrator
+INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (19, 'admin1', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'admin@example.com', '0101990123456', 'Petar', 'Petrovic', 'Administrator za upravljanje korisnicima.', 'ADMIN');
+
+-- ✨ Dodato: Novi korisnik sa ulogom STAFF
+INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (20, 'staff1', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'staff1@example.com', '2005995712370', 'Nikola', 'Janković', 'Osoblje studentske službe.', 'STAFF');
+
+
 -- 3) University (needs address_id + rector_id)
 INSERT INTO university (id, name, address_id, rector_id, contact, description, date_of_establishment) VALUES (1, 'University of Novi Sad', 1, 3, '+381 21 123 456', 'Public university in Novi Sad.', '2025-02-02');
 
@@ -148,3 +155,20 @@ INSERT INTO term_topic (id, description, term_number, course_id) VALUES (9,  'Re
 INSERT INTO term_topic (id, description, term_number, course_id) VALUES (10, 'SQL DDL/DML: CREATE/INSERT/UPDATE/DELETE',   2, 3);
 INSERT INTO term_topic (id, description, term_number, course_id) VALUES (11, 'JOINS & aggregation (GROUP BY/HAVING)',      3, 3);
 INSERT INTO term_topic (id, description, term_number, course_id) VALUES (12, 'Normalization and keys; anomalies',          4, 3);
+
+-- 16) DocumentRequest (needs student_id + staff_id)
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
+VALUES (1, 1, 'STUDENT_STATUS', 'Potvrda o statusu studenta za ambasadorsku vizu', 'PENDING', CURRENT_TIMESTAMP());
+
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
+VALUES (2, 6, 'TRANSCRIPT', 'Uverenje o položenim ispitima za prebacivanje na drugi fakultet', 'APPROVED', '2025-09-10 10:00:00');
+
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
+VALUES (3, 7, 'VISA_CONFIRMATION', 'Potvrda za studentsku vizu', 'PENDING', CURRENT_TIMESTAMP());
+
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
+VALUES (4, 8, 'OTHER', 'Uverenje o proseku ocena', 'REJECTED', CURRENT_TIMESTAMP());
+
+-- Povezivanje odobrenog i odbijenog zahteva sa članom osoblja koji ih je obradio
+UPDATE document_request SET completion_date = '2025-09-12 12:00:00', staff_id = 20 WHERE id = 2;
+UPDATE document_request SET completion_date = '2025-09-13 13:30:00', staff_id = 20 WHERE id = 4;

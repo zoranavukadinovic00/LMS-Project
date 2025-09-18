@@ -15,6 +15,5 @@ public interface ProfessorCourseRepository extends JpaRepository<ProfessorCourse
     @Query("SELECT pc FROM ProfessorCourse pc WHERE pc.professor.id = :professorId")
     List<ProfessorCourse> findAllByProfessorId(@Param("professorId") Long professorId);
 
-    // ✨ Dodata metoda za pronalaženje po profesoru
     List<ProfessorCourse> findByProfessor_Id(Long professorId);
 }

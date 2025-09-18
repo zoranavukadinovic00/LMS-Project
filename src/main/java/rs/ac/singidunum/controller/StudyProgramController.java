@@ -27,7 +27,6 @@ public class StudyProgramController {
         this.studyProgramService = studyProgramService;
     }
 
-    // Dobijanje studijskog programa po ID-u (javno)
     @GetMapping("/{id}")
     public ResponseEntity<StudyProgramDto> getById(@PathVariable Long id) {
         StudyProgram studyProgram = studyProgramService.findOne(id);
@@ -37,7 +36,6 @@ public class StudyProgramController {
         return ResponseEntity.ok(new StudyProgramDto(studyProgram));
     }
 
-    // Dobijanje svih studijskih programa po ID-u fakulteta (javno)
     @GetMapping("/faculty/{facultyId}")
     public ResponseEntity<List<StudyProgramDto>> getByFacultyId(@PathVariable Long facultyId) {
         List<StudyProgram> studyPrograms = studyProgramService.getAllByFacultyId(facultyId);

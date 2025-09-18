@@ -7,15 +7,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import rs.ac.singidunum.model.Course;
 import rs.ac.singidunum.model.CourseOnProgram;
 
 @Repository
 public interface CourseOnProgramRepository extends JpaRepository<CourseOnProgram, Long> {
-
-    @Query("SELECT cop.course FROM CourseOnProgram cop WHERE cop.studyProgram.id = :programId")
-    List<Course> findCoursesByStudyProgramId(@Param("programId") Long programId);
     
-    // Dodata metoda za kaskadno brisanje
-    void deleteByStudyProgramId(Long studyProgramId);
+    List<CourseOnProgram> findByStudyProgram_Id(Long studyProgramId);
+
+    void deleteByStudyProgram_Id(Long studyProgramId);
+
+    @Query("SELECT cop FROM CourseOnProgram cop WHERE cop.studyProgram.id = :studyProgramId AND cop.year = :year AND cop.course.mandatory = :isMandatory")
+    List<CourseOnProgram> findByStudyProgramIdAndYearAndCourseMandatory(
+        @Param("studyProgramId") Long studyProgramId,
+        @Param("year") int year,
+        @Param("isMandatory") boolean isMandatory);
 }

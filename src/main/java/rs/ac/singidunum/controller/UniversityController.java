@@ -54,7 +54,6 @@ public class UniversityController {
         }
     }
     
-    // Dodat PUT endpoint za ažuriranje organizacije
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UniversityDto> updateUniversity(@PathVariable Long id, @RequestBody UniversityDto universityDto) {
@@ -69,11 +68,6 @@ public class UniversityController {
             existingUniversity.setDescription(universityDto.getDescription());
             existingUniversity.setDateOfEstablishment(universityDto.getDateOfEstablishment());
 
-            // Napomena: Ažuriranje adrese i rektora zahteva dodatnu logiku i servise
-            // U ovom primeru, preskačemo te promene da bi fokus bio na osnovnom ažuriranju
-            // ako je potrebno, morali biste da nađete/kreirate novu adresu i korisnika
-            // i da ih setujete na existingUniversity objekat
-
             University updatedUniversity = universityService.save(existingUniversity);
             return ResponseEntity.ok(new UniversityDto(updatedUniversity));
         } catch (Exception e) {
@@ -81,7 +75,6 @@ public class UniversityController {
         }
     }
 
-    // Dodat DELETE endpoint za brisanje organizacije
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUniversity(@PathVariable Long id) {
