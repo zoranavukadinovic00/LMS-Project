@@ -30,6 +30,8 @@ public class AppUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + u.getType().name()));
 
+        
+        
         return org.springframework.security.core.userdetails.User
                 .withUsername(u.getUsername())
                 .password(u.getPassword())

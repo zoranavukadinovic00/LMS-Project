@@ -45,12 +45,15 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/api/faculties/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/study-programs/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/syllabuses/by_course/**").permitAll()
                     .requestMatchers(HttpMethod.PUT, "/api/universities/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/universities/**").hasRole("ADMIN")
                     .requestMatchers("/api/users/**").authenticated()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     // Dodato: Pravilo za novu ulogu STAFF
                     .requestMatchers("/api/staff/**").hasRole("STAFF")
+                    
+                    .requestMatchers("/api/student/**").authenticated()
                     .anyRequest().authenticated()
             )
             .authenticationProvider(daoAuthProvider())

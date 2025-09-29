@@ -157,17 +157,11 @@ INSERT INTO term_topic (id, description, term_number, course_id) VALUES (11, 'JO
 INSERT INTO term_topic (id, description, term_number, course_id) VALUES (12, 'Normalization and keys; anomalies',          4, 3);
 
 -- 16) DocumentRequest (needs student_id + staff_id)
-INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
-VALUES (1, 1, 'STUDENT_STATUS', 'Potvrda o statusu studenta za ambasadorsku vizu', 'PENDING', CURRENT_TIMESTAMP());
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) VALUES (1, 1, 'STUDENT_STATUS', 'Potvrda o statusu studenta za ambasadorsku vizu', 'PENDING', NOW());
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) VALUES (2, 6, 'TRANSCRIPT', 'Uverenje o položenim ispitima za prebacivanje na drugi fakultet', 'APPROVED', '2025-09-10 10:00:00');
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) VALUES (3, 7, 'VISA_CONFIRMATION', 'Potvrda za studentsku vizu', 'PENDING', NOW());
+INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) VALUES (4, 8, 'OTHER', 'Uverenje o proseku ocena', 'REJECTED', NOW());
 
-INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
-VALUES (2, 6, 'TRANSCRIPT', 'Uverenje o položenim ispitima za prebacivanje na drugi fakultet', 'APPROVED', '2025-09-10 10:00:00');
-
-INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
-VALUES (3, 7, 'VISA_CONFIRMATION', 'Potvrda za studentsku vizu', 'PENDING', CURRENT_TIMESTAMP());
-
-INSERT INTO document_request (id, student_id, document_type, purpose, status, request_date) 
-VALUES (4, 8, 'OTHER', 'Uverenje o proseku ocena', 'REJECTED', CURRENT_TIMESTAMP());
 
 -- Povezivanje odobrenog i odbijenog zahteva sa članom osoblja koji ih je obradio
 UPDATE document_request SET completion_date = '2025-09-12 12:00:00', staff_id = 20 WHERE id = 2;
