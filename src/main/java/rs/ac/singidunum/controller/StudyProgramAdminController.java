@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('ADMIN')")
 public class StudyProgramAdminController {
 
-    private final StudyProgramService studyProgramService;
-    private final FacultyService facultyService;
-    private final UserService userService;
+    private final StudyProgramService studyProgramService; 
+    private final FacultyService facultyService; 
+    private final UserService userService; 
 
    @Autowired
-public StudyProgramAdminController(StudyProgramService studyProgramService, FacultyService facultyService, UserService userService) {
-    this.studyProgramService = studyProgramService;
-    this.facultyService = facultyService; 
-    this.userService = userService;
-}
+    public StudyProgramAdminController(StudyProgramService studyProgramService, FacultyService facultyService, UserService userService) {
+        this.studyProgramService = studyProgramService;
+        this.facultyService = facultyService; 
+        this.userService = userService;
+    }
 
     @GetMapping
     public ResponseEntity<List<StudyProgramDto>> getAllStudyPrograms() {
@@ -54,6 +54,7 @@ public StudyProgramAdminController(StudyProgramService studyProgramService, Facu
     @PostMapping
     public ResponseEntity<StudyProgramDto> createStudyProgram(@RequestBody StudyProgramDto dto) {
         
+        // Provera da li su ID-evi validni (ne null i veći od 0)
         if (dto.getFacultyId() == null || dto.getFacultyId() <= 0 || dto.getManagerId() == null || dto.getManagerId() <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -62,6 +63,7 @@ public StudyProgramAdminController(StudyProgramService studyProgramService, Facu
         User manager = userService.findOne(dto.getManagerId());
 
         if (faculty == null || manager == null) {
+            // Provera da li entiteti zaista postoje u bazi
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -72,34 +74,23 @@ public StudyProgramAdminController(StudyProgramService studyProgramService, Facu
         studyProgram.setManager(manager);
 
         StudyProgram savedProgram = studyProgramService.save(studyProgram);
+        
+        // 🚨 PROVERA: Da li je entitet dobio ID nakon snimanja (provera da li je snimanje uspelo)
+        if (savedProgram == null || savedProgram.getId() == null) {
+            System.err.println("Database save failed: StudyProgram entity did not receive an ID.");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
         return new ResponseEntity<>(new StudyProgramDto(savedProgram), HttpStatus.CREATED);
     }
 
+    // PUT metoda je ostala nepromenjena i radi ispravno (delegira Servisu)
     @PutMapping("/{id}")
     public ResponseEntity<StudyProgramDto> updateStudyProgram(@PathVariable Long id, @RequestBody StudyProgramDto dto) {
-        StudyProgram existingProgram = studyProgramService.findOne(id);
-        if (existingProgram == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        existingProgram.setName(dto.getName());
-        existingProgram.setDescription(dto.getDescription());
-
-        if (dto.getFacultyId() != null && dto.getFacultyId() > 0) {
-            Faculty faculty = facultyService.findOne(dto.getFacultyId());
-            if (faculty != null) {
-                existingProgram.setFaculty(faculty);
-            }
-        }
-        if (dto.getManagerId() != null && dto.getManagerId() > 0) {
-            User manager = userService.findOne(dto.getManagerId());
-            if (manager != null) {
-                existingProgram.setManager(manager);
-            }
-        }
-
-        StudyProgram updatedProgram = studyProgramService.save(existingProgram);
-        return new ResponseEntity<>(new StudyProgramDto(updatedProgram), HttpStatus.OK);
+        
+        StudyProgramDto updatedProgram = studyProgramService.update(id, dto);
+        
+        return new ResponseEntity<>(updatedProgram, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
