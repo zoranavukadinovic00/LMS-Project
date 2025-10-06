@@ -1,15 +1,16 @@
 package rs.ac.singidunum.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.singidunum.model.Course;
+import rs.ac.singidunum.model.CourseOnProgram;
 import rs.ac.singidunum.repository.CourseOnProgramRepository;
-import rs.ac.singidunum.repository.CourseRepository;
-import rs.ac.singidunum.model.CourseOnProgram; 
+import rs.ac.singidunum.repository.CourseRepository; 
 
 @Service
 public class CourseService {
@@ -44,5 +45,8 @@ public class CourseService {
         return coursesOnProgram.stream()
             .map(CourseOnProgram::getCourse)
             .collect(Collectors.toList());
+    }
+    public Optional<Course> getCourseById(Long id) {
+        return courseRepository.findById(id);
     }
 }

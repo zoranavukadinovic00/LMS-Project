@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.singidunum.model.StudentCourse;
+import rs.ac.singidunum.model.enums.EnrollmentStatus;
 import rs.ac.singidunum.repository.StudentCourseRepository;
 @Service
 public class StudentCourseService {
@@ -44,7 +45,9 @@ public class StudentCourseService {
     public List<StudentCourse> findStudentsByCourseId(long studentId){
     	return studentCourseRepository.findStudentsByCourseId(studentId);
     }
-    
+    public List<StudentCourse> getStudentCoursesByStudentIdAndStatus(Long studentId, EnrollmentStatus status) {
+        return studentCourseRepository.findByStudentIdAndStatus(studentId, status);
+    }
     
 
    

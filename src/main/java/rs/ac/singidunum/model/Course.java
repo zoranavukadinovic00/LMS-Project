@@ -62,7 +62,10 @@ public class Course {
 		this.otherClasses = otherClasses;
 		this.teachingMaterials = teachingMaterials;
 	}
-
+	
+	public Course(Long id) {
+	    this.id = id;
+	}
 	public Long getId() {
 		return id;
 	}

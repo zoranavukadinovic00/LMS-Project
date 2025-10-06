@@ -4,10 +4,12 @@ package rs.ac.singidunum.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.singidunum.dto.StudentCourseDto;
 import rs.ac.singidunum.dto.DocumentRequestDto;
+import rs.ac.singidunum.dto.StudentCourseDto;
 import rs.ac.singidunum.model.StudentCourse;
 import rs.ac.singidunum.model.User;
+import rs.ac.singidunum.model.enums.EnrollmentStatus;
+import rs.ac.singidunum.service.DocumentService;
 import rs.ac.singidunum.service.StudentCourseService;
 import rs.ac.singidunum.service.UserService;
-import rs.ac.singidunum.service.DocumentService;
 
 @RestController
 @RequestMapping("/api/student") // Promenjen je naziv rute
@@ -105,5 +108,22 @@ public class StudentCourseController { // Preimenovan je naziv klase
         User student = userService.findByUsername(userDetails.getUsername());
         List<DocumentRequestDto> requests = documentService.getStudentRequests(student.getId());
         return new ResponseEntity<>(requests, HttpStatus.OK);
+    }
+    @GetMapping("/student/my-enrolled-courses")
+    public ResponseEntity<?> getMyEnrolledCourses(Authentication authentication) {
+        try {
+            String username = authentication.getName();
+            User student = userService.getUserByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("Student not found"));
+            
+            List<StudentCourse> courses = studentCourseService
+                    .getStudentCoursesByStudentIdAndStatus(student.getId(), EnrollmentStatus.ENROLLED);
+            
+            return ResponseEntity.ok(courses.stream()
+                    .map(StudentCourseDto::new)
+                    .collect(Collectors.toList()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
     }
 }

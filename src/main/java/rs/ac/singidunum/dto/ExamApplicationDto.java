@@ -2,21 +2,37 @@ package rs.ac.singidunum.dto;
 
 import java.time.LocalDateTime;
 
-import rs.ac.singidunum.model.enums.ExamApplicationStatus;
+import rs.ac.singidunum.model.ExamApplication;
 
 public class ExamApplicationDto {
 	
 	private Long id;
+    private Long studentId;
+    private String studentName;
+    private String studentIndex;
+    private Long courseId;
+    private String courseName;
+    private Long termId;
+    private String termName;
+    private LocalDateTime applicationDate;
+    private int points;
+    private String status;
 
-	private Long courseId;
+    public ExamApplicationDto() {}
 
-	private Long studentId;
-
-	private ExamApplicationStatus status;
-
-	private LocalDateTime applicationDate;
-
-	private int points;
+    public ExamApplicationDto(ExamApplication app) {
+        this.id = app.getId();
+        this.studentId = app.getStudent().getId();
+        this.studentName = app.getStudent().getName() + " " + app.getStudent().getSurname();
+        this.studentIndex = String.valueOf(app.getStudent().getId());
+        this.courseId = app.getCourse().getId();
+        this.courseName = app.getCourse().getName();
+        this.termId = app.getExamTerm().getId();
+        this.termName = app.getExamTerm().getName();
+        this.applicationDate = app.getApplicationDate();
+        this.points = app.getPoints();
+        this.status = app.getStatus().name();
+    }
 
 	public Long getId() {
 		return id;
@@ -24,14 +40,6 @@ public class ExamApplicationDto {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
 	}
 
 	public Long getStudentId() {
@@ -42,12 +50,44 @@ public class ExamApplicationDto {
 		this.studentId = studentId;
 	}
 
-	public ExamApplicationStatus getStatus() {
-		return status;
+	public String getStudentName() {
+		return studentName;
 	}
 
-	public void setStatus(ExamApplicationStatus status) {
-		this.status = status;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public Long getTermId() {
+		return termId;
+	}
+
+	public void setTermId(Long termId) {
+		this.termId = termId;
+	}
+
+	public String getTermName() {
+		return termName;
+	}
+
+	public void setTermName(String termName) {
+		this.termName = termName;
 	}
 
 	public LocalDateTime getApplicationDate() {
@@ -65,7 +105,23 @@ public class ExamApplicationDto {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStudentIndex() {
+		return studentIndex;
+	}
+
+	public void setStudentIndex(String studentIndex) {
+		this.studentIndex = studentIndex;
+	}
 	
-	
+    
 }
 

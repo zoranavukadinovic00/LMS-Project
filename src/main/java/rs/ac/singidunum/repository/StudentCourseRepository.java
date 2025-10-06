@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import rs.ac.singidunum.model.StudentCourse;
+import rs.ac.singidunum.model.enums.EnrollmentStatus;
 
 @Repository
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, Long> {
@@ -26,4 +27,5 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourse, Lo
     @Query("SELECT sc FROM StudentCourse sc WHERE sc.course.id = :courseId")
     List<StudentCourse> findStudentsByCourseId(@Param("courseId") Long courseId);
 
+    List<StudentCourse> findByStudentIdAndStatus(Long studentId, EnrollmentStatus status);
 }

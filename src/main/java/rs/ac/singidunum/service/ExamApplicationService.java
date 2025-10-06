@@ -1,86 +1,80 @@
 package rs.ac.singidunum.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.singidunum.dto.ExamApplicationDto;
-import rs.ac.singidunum.model.Course;
 import rs.ac.singidunum.model.ExamApplication;
-import rs.ac.singidunum.model.StudentCourse;
+import rs.ac.singidunum.model.ExamTerm;
 import rs.ac.singidunum.model.User;
 import rs.ac.singidunum.model.enums.ExamApplicationStatus;
-import rs.ac.singidunum.repository.CourseRepository;
 import rs.ac.singidunum.repository.ExamApplicationRepository;
-import rs.ac.singidunum.repository.StudentCourseRepository;
-import rs.ac.singidunum.repository.UserRepository;
 
 @Service
 public class ExamApplicationService {
+	
+	@Autowired
+    private ExamApplicationRepository examApplicationRepository;
 
     @Autowired
-    private ExamApplicationRepository examRepository;
+    private UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
+    private ExamTermService examTermService;
 
-    @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    private StudentCourseRepository studentCourseRepository;
-
-    public List<ExamApplication> findAll() {
-        return examRepository.findAll();
+    public List<ExamApplication> getAllApplications() {
+        return examApplicationRepository.findAll();
     }
 
-    public ExamApplication findOne(Long id) {
-        return examRepository.findById(id).orElse(null);
+    public Optional<ExamApplication> getApplicationById(Long id) {
+        return examApplicationRepository.findById(id);
     }
 
-    public ExamApplication save(ExamApplicationDto examApplicationDto) {
-        User user = userRepository.findById(examApplicationDto.getStudentId()).orElse(null);
-        if(user == null) {
-            return null;
-        }
-
-        Course course = courseRepository.findById(examApplicationDto.getCourseId()).orElse(null);
-        if(course == null) {
-            return null;
-        }
-        
-        // ✨ Ispravljeno: promenjen naziv metode kako bi se poklapao sa repozitorijumom
-        Optional<StudentCourse> optionalStudentCourse = studentCourseRepository.findFirstByStudent_IdAndCourse_Id(user.getId(), course.getId());
-        
-        if (optionalStudentCourse.isEmpty()) {
-            return null;
-        }
-        
-        StudentCourse studentCourse = optionalStudentCourse.get();
-
-        //fali rok
-        ExamApplication examApplication = new ExamApplication();
-        examApplication.setStudent(user);
-        examApplication.setCourse(course);
-        examApplication.setStatus(ExamApplicationStatus.APPLIED);
-        examApplication.setPoints(0);
-        examApplication.setApplicationDate(LocalDateTime.now());
-        examRepository.save(examApplication);
-        
-        studentCourse.setNumberOfExamApplications(studentCourse.getNumberOfExamApplications() + 1);
-        studentCourseRepository.save(studentCourse);
-        
-        return examApplication;
+    public List<ExamApplication> getApplicationsByCourse(Long courseId) {
+        return examApplicationRepository.findByCourseId(courseId);
     }
 
-    public void delete(Long id) {
-        examRepository.deleteById(id);
+    public List<ExamApplication> getApplicationsByStudent(Long studentId) {
+        return examApplicationRepository.findByStudent_Id(studentId);
     }
 
-    public void delete(ExamApplication examApplication) {
-        examRepository.delete(examApplication);
+    public List<ExamApplication> getApplicationsByTerm(Long termId) {
+        return examApplicationRepository.findByExamTermId(termId);
+    }
+
+    public List<ExamApplication> getStudentsForCourse(Long courseId) {
+        return examApplicationRepository.findByCourseId(courseId);
+    }
+
+    public ExamApplication applyForExam(Long studentId, Long termId) {
+        User student = userService.getUserById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        
+        ExamTerm term = examTermService.getTermById(termId)
+                .orElseThrow(() -> new RuntimeException("Exam term not found"));
+        
+        ExamApplication app = new ExamApplication();
+        app.setStudent(student);
+        app.setExamTerm(term);
+        app.setCourse(term.getCourse());
+        app.setStatus(ExamApplicationStatus.APPLIED);
+        app.setPoints(0);
+        
+        return examApplicationRepository.save(app);
+    }
+
+    public ExamApplication saveApplication(ExamApplication app) {
+        return examApplicationRepository.save(app);
+    }
+
+    public void deleteApplication(Long id) {
+        examApplicationRepository.deleteById(id);
+    }
+    public ExamApplication updateApplication(ExamApplication app) {
+        return examApplicationRepository.save(app);
     }
 }
+
+	    

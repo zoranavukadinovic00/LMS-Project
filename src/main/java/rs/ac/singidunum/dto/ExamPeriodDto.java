@@ -7,27 +7,17 @@ import rs.ac.singidunum.model.ExamPeriod;
 public class ExamPeriodDto {
 	
 	private Long id;
-	
-	private Long courseId;
-	private String courseName;
-	
-	private LocalDateTime startDate;
-	
-	private LocalDateTime endDate = LocalDateTime.now();
+    private String name;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-	public ExamPeriodDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public ExamPeriodDto() {}
 
-
-
-	public ExamPeriodDto(ExamPeriod examPeriod) {
-		this.id = examPeriod.getId();
-		this.courseId = examPeriod.getCourse().getId();
-		this.startDate = examPeriod.getStartDate();
-		this.endDate = examPeriod.getEndDate();
-		this.courseName = examPeriod.getCourse().getName();
+    public ExamPeriodDto(ExamPeriod period) {
+        this.id = period.getId();
+        this.name = period.getName();
+        this.startDate = period.getStartDate();
+        this.endDate = period.getEndDate();
     }
 
 	public Long getId() {
@@ -38,12 +28,12 @@ public class ExamPeriodDto {
 		this.id = id;
 	}
 
-	public Long getCourseId() {
-		return courseId;
+	public String getName() {
+		return name;
 	}
 
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public LocalDateTime getStartDate() {
@@ -62,12 +52,5 @@ public class ExamPeriodDto {
 		this.endDate = endDate;
 	}
 
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
+	
 }

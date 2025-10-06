@@ -1,6 +1,7 @@
 package rs.ac.singidunum.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,8 @@ public class UserService {
     private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+
 	
     public List<User> findAll() {
         return userRepository.findAll();
@@ -81,5 +84,17 @@ public class UserService {
         user.setBiography(dto.getBiography());
 
         return userRepository.save(user);
+    }
+    
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

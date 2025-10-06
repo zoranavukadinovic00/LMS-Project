@@ -63,6 +63,10 @@ public class User {
 		this.type = type;
 	}
 
+	public User(Long id) {
+	    this.id = id;
+	}
+
 
 	public Long getId() {
 		return id;

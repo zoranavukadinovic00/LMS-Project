@@ -7,5 +7,5 @@ import rs.ac.singidunum.model.ExamPeriod;
 
 @Repository
 public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {
-
+	
 }

@@ -23,99 +23,101 @@ public class ExamApplication {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
-	private User student;
+    private User student;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id")
-	private Course course;
+    private Course course;
 	
-	@Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-	private ExamApplicationStatus status;
+    private ExamApplicationStatus status;
 	
-	@CreationTimestamp
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "exam_term_id", nullable = false)
+    private ExamTerm examTerm;
+	
+    @CreationTimestamp
     @Column(name = "application_date", nullable = true)
-	private LocalDateTime applicationDate;
+    private LocalDateTime applicationDate;
 	
-	@Column(name = "points", nullable = false)
-	private int points;
+    @Column(name = "points", nullable = false)
+    private int points;
+
+    public ExamApplication() {
+        super();
+    }
 	
-	
+    public ExamApplication(Long id, User student, Course course, ExamApplicationStatus status, ExamTerm examTerm,
+            LocalDateTime applicationDate, int points) {
+        super();
+        this.id = id;
+        this.student = student;
+        this.course = course;
+        this.status = status;
+        this.examTerm = examTerm;
+        this.applicationDate = applicationDate;
+        this.points = points;
+    }
 
-	public ExamApplication() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+    public Long getId() {
+        return id;
+    }
 
-	public ExamApplication(Long id, User student, Course course, ExamApplicationStatus status,
-			LocalDateTime applicationDate, int points) {
-		super();
-		this.id = id;
-		this.student = student;
-		this.course = course;
-		this.status = status;
-		this.applicationDate = applicationDate;
-		this.points = points;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public User getStudent() {
+        return student;
+    }
 
+    public void setStudent(User student) {
+        this.student = student;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Course getCourse() {
+        return course;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
-	
+    public ExamApplicationStatus getStatus() {
+        return status;
+    }
 
-	public User getStudent() {
-		return student;
-	}
+    public void setStatus(ExamApplicationStatus status) {
+        this.status = status;
+    }
 
-	public void setStudent(User student) {
-		this.student = student;
-	}
+    public LocalDateTime getApplicationDate() {
+        return applicationDate;
+    }
 
-	public Course getCourse() {
-		return course;
-	}
+    public void setApplicationDate(LocalDateTime applicationDate) {
+        this.applicationDate = applicationDate;
+    }
 
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+    public int getPoints() {
+        return points;
+    }
 
-	public ExamApplicationStatus getStatus() {
-		return status;
-	}
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
-	public void setStatus(ExamApplicationStatus status) {
-		this.status = status;
-	}
+    public ExamTerm getExamTerm() {
+        return examTerm;
+    }
 
-	public LocalDateTime getApplicationDate() {
-		return applicationDate;
-	}
-
-	public void setApplicationDate(LocalDateTime applicationDate) {
-		this.applicationDate = applicationDate;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
-	
-	
+    public void setExamTerm(ExamTerm examTerm) {
+        this.examTerm = examTerm;
+    }
 	
 }

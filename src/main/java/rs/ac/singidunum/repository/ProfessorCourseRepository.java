@@ -16,4 +16,8 @@ public interface ProfessorCourseRepository extends JpaRepository<ProfessorCourse
     List<ProfessorCourse> findAllByProfessorId(@Param("professorId") Long professorId);
 
     List<ProfessorCourse> findByProfessor_Id(Long professorId);
+    
+    List<ProfessorCourse> findByCourseId(Long courseId);
+    
+    boolean existsByProfessorIdAndCourseId(Long professorId, Long courseId);
 }

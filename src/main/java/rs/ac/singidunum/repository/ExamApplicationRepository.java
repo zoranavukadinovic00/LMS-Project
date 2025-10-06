@@ -11,4 +11,9 @@ import rs.ac.singidunum.model.ExamApplication;
 public interface ExamApplicationRepository extends JpaRepository<ExamApplication, Long> {
 
     List<ExamApplication> findByStudent_Id(Long studentId);
+    
+    List<ExamApplication> findByCourseId(Long courseId);
+
+    List<ExamApplication> findByExamTermId(Long examTermId);
+
 }
