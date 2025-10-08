@@ -18,60 +18,39 @@ INSERT INTO address (id, street, number, place_id) VALUES (5, 'Centar ', 110, 4)
 -- 2) Users (referenced by University, Faculty, Student*, ProfessorCourse, ExamApplication)
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (1, 'student1', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student1@example.com', '0101996712345', 'Ana',   'Jovanović', 'Undergraduate student.', 'STUDENT');
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (6,  'student6', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student6@example.com',  '0606996712350', 'Stefan',   'Kovačević',  'Student informatičkih sistema; interesovanja: Java, Spring i baze podataka.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (7,  'student7', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student7@example.com',  '0707996712351', 'Ivana',    'Nikolić',    'Studentkinja sestrinstva; voli rad sa pacijentima i volontira u udruženjima.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (8,  'student8', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student8@example.com',  '0808996712352', 'Luka',     'Savić',      'Student ekonomije; fokus na finansijsku analitiku i Excel modelovanje.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (9,  'student9', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student9@example.com',  '0909996712353', 'Teodora',  'Đorđević',   'Studentkinja menadžmenta; član marketing tima studentskog udruženja.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (10, 'student10', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student10@example.com', '1010996712354', 'Petar',    'Pavlović',   'Student softverskog inženjerstva; radi na open-source projektima.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (11, 'student11', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student11@example.com', '1111996712355', 'Marija',   'Janković',   'Studentkinja psihologije; interesovanja: razvojna psihologija i istraživanja.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (12, 'student12', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student12@example.com', '1212996712356', 'Nemanja',  'Vuković',    'Student elektrotehnike; hobi: IoT projekti i Arduino prototipovi.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (13, 'student13', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student13@example.com', '1301996712357', 'Katarina', 'Arsić',      'Studentkinja dizajna; bavi se UX/UI i ilustracijom u slobodno vreme.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (14, 'student14', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student14@example.com', '1402996712358', 'Vladimir', 'Radovanović','Student mašinstva; učestvuje u formula student timu kao konstruktor.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (15, 'student15', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student15@example.com', '1503996712359', 'Sara',     'Maksimović', 'Studentkinja biologije; interesuje je mikrobiologija i laboratorijski rad.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (16, 'student16', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student16@example.com', '1604996712360', 'Uroš',     'Blagojević', 'Student matematike; takmičar u statistici i primenjenoj analizi podataka.', 'STUDENT');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (17, 'student17', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'student17@example.com', '1705996712361', 'Mina',     'Todorović',  'Studentkinja prava; aktivna u debatnom klubu i studentskom parlamentu.', 'STUDENT');
-
-
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (2, 'prof1',    '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'prof1@example.com',    '0202998812345', 'Marko', 'Marković',  'Professor of Computer Science.', 'PROFESSOR');
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (5, 'prof123',    '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'prof2@example.com',    '0202998812345', 'Marko', 'Marković',  'Professor of Computer Science.', 'PROFESSOR');
-
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (3, 'rector',   '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'rector@example.com',   '0303997712345', 'Ivana', 'Petrović',  'University rector.', 'PROFESSOR');
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (4, 'rector1',   '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'rector1@example.com',   '0303997712345', 'Iva', 'Petrić',  'University rector.', 'PROFESSOR');
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (18, 'rector12',   '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'rector1@example.com',   '0303997712345', 'Ivan', 'Petrić',  'University rector.', 'PROFESSOR');
-
-
 -- Administrator
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (19, 'admin1', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'admin@example.com', '0101990123456', 'Petar', 'Petrovic', 'Administrator za upravljanje korisnicima.', 'ADMIN');
-
 -- ✨ Dodato: Novi korisnik sa ulogom STAFF
 INSERT INTO USERS (id, username, password, email, jmbg, name, surname, biography, type) VALUES (20, 'staff1', '$2a$10$Uy4ar5wdEOIA7QTWYvYoE.8sbKaNAGETFX/Tcz8NEuZn9nTNDIvRy', 'staff1@example.com', '2005995712370', 'Nikola', 'Janković', 'Osoblje studentske službe.', 'STAFF');
 
 
 -- 3) University (needs address_id + rector_id)
 INSERT INTO university (id, name, address_id, rector_id, contact, description, date_of_establishment) VALUES (1, 'University of Novi Sad', 1, 3, '+381 21 123 456', 'Public university in Novi Sad.', '2025-02-02');
-
 INSERT INTO university (id, name, address_id, rector_id, contact, description, date_of_establishment) VALUES (2, 'University of Belgrade', 2, 4, '+381 11 987 654', 'Public university in Belgrade.', '2025-02-02');
 
 -- 4) Faculty (needs university_id + address_id + dean_id)
 INSERT INTO faculty (id, name, university_id, address_id, dean_id, contact, description) VALUES (1, 'Faculty of Science', 1, 1, 2, '+381 21 123 456', 'Science faculty.');
-
 INSERT INTO faculty (id, name, university_id, address_id, dean_id, contact, description) VALUES (2, 'Faculty of Engineering', 1, 2, 3, '+381 11 987 654', 'Engineering faculty.');
 INSERT INTO faculty (id, name, university_id, address_id, dean_id, contact, description) VALUES (3, 'Faculty of Psychology', 1, 5, 18, '+381 11 987 654', 'Engineering faculty.');
 
 -- 5) StudyProgram (needs faculty_id + manager_id)
 INSERT INTO study_program (id, name, faculty_id, description, manager_id) VALUES (1, 'Computer Science',    1, 'Study program focused on CS fundamentals.', 2);
-
 INSERT INTO study_program (id, name, faculty_id, description, manager_id) VALUES (2, 'Software Engineering', 1, 'Program focused on software development.',  5);
 
 
@@ -166,3 +145,29 @@ INSERT INTO document_request (id, student_id, document_type, purpose, status, re
 -- Povezivanje odobrenog i odbijenog zahteva sa članom osoblja koji ih je obradio
 UPDATE document_request SET completion_date = '2025-09-12 12:00:00', staff_id = 20 WHERE id = 2;
 UPDATE document_request SET completion_date = '2025-09-13 13:30:00', staff_id = 20 WHERE id = 4;
+
+
+-- 17) ExamPeriod
+-- Kreiramo aktivan ispitni rok, npr. Septembarski 2025, koji traje od 01.10.2025 do 31.10.2025
+-- (Ovaj rok će biti vidljiv u aplikaciji)
+INSERT INTO exam_period (id, name, start_date, end_date) VALUES 
+(1, 'Septembarski 2025 - AKTIVAN', '2025-10-01 00:00:00', '2025-10-31 23:59:59');
+
+-- Kreiramo neaktivan rok (neće biti vidljiv, za proveru filtriranja)
+INSERT INTO exam_period (id, name, start_date, end_date) VALUES 
+(2, 'Januarski 2025 - NEAKTIVAN', '2025-01-01 00:00:00', '2025-01-31 23:59:59');
+
+
+-- 18) ExamTerm (Termini se vezuju za ispite koji su studentu ENROLLED, npr. Mathematics 1 i Databases)
+
+-- Termini za Mathematics 1 (course name = 'Mathematics 1', course_id=1) u AKTIVNOM ROKU (id=1)
+INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
+(1, 'Matematika 1 - Pismeni (15.10.)', '2025-10-15 10:00:00', 1, 'Mathematics 1', 2, 'A1'); 
+
+-- Termini za Databases (course name = 'Databases', course_id=3) u AKTIVNOM ROKU (id=1)
+INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
+(2, 'Baze podataka - Usmeni (20.10.)', '2025-10-20 14:00:00', 1, 'Databases', 3, 'B5'); 
+
+-- Termin za Programming 1 (course name = 'Programming 1', course_id=2). Student1 je položio ovaj predmet (ocena 10), pa ga neće prijavljivati
+INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
+(3, 'Programiranje 1 - Pismeni (25.10.)', '2025-10-25 12:00:00', 1, 'Programming 1', 2, 'C2');

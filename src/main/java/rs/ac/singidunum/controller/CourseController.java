@@ -20,35 +20,50 @@ import rs.ac.singidunum.service.CourseService;
 @RequestMapping("/api/courses")
 public class CourseController {
 
-	@Autowired
-	private CourseService courseService;
+    @Autowired
+    private CourseService courseService;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<CourseDetailsDto> getCourse(@PathVariable("id") Long id) {
-		Course course = courseService.findOne(id);
+    // NOVI ENDPOINT: Dohvaća sve predmete
+    @GetMapping
+    public ResponseEntity<List<CourseDto>> getAllCourses() {
+        List<Course> courses = courseService.findAll(); 
 
-		if (course == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+        List<CourseDto> dtos = new ArrayList<>();
 
-		CourseDetailsDto dto = new CourseDetailsDto(course);
+        for (Course c : courses) {
+            dtos.add(new CourseDto(c));
+        }
+        
+        return ResponseEntity.ok(dtos);
+    }
+    // KRAJ NOVOG ENDPOINTA
 
-		return new ResponseEntity<>(dto, HttpStatus.OK);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDetailsDto> getCourse(@PathVariable("id") Long id) {
+        Course course = courseService.findOne(id);
 
-	@GetMapping("/forStudyProgram/{programId}")
+        if (course == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-	public ResponseEntity<List<CourseDto>> listCourses(@PathVariable Long programId) {
+        CourseDetailsDto dto = new CourseDetailsDto(course);
 
-		List<Course> courses = courseService.getAllByProgramId(programId);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
 
-		List<CourseDto> dtos = new ArrayList<>();
+    @GetMapping("/forStudyProgram/{programId}")
 
-		for (Course c : courses)
-			dtos.add(new CourseDto(c));
+    public ResponseEntity<List<CourseDto>> listCourses(@PathVariable Long programId) {
 
-		return ResponseEntity.ok(dtos);
+        List<Course> courses = courseService.getAllByProgramId(programId);
 
-	}
+        List<CourseDto> dtos = new ArrayList<>();
+
+        for (Course c : courses)
+            dtos.add(new CourseDto(c));
+
+        return ResponseEntity.ok(dtos);
+
+    }
 
 }

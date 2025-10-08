@@ -46,11 +46,19 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/api/study-programs/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/syllabuses/by_course/**").permitAll()
+                    
+                    // IZMENJENA LINIJA (REŠAVA 403): Dozvoljava STUDENTIMA, OSOBLJU i ADMINIMA pristup GET ruti
+                    .requestMatchers(HttpMethod.GET, "/api/exam_periods/**").hasAnyRole("STUDENT", "STAFF", "ADMIN")
+                    
+                    // Dozvoljava kreiranje/izmenu/brisanje samo ADMINU i OSOBLJU
+                    .requestMatchers(HttpMethod.POST, "/api/exam_periods/**").hasAnyRole("ADMIN", "STAFF")
+                    .requestMatchers(HttpMethod.PUT, "/api/exam_periods/**").hasAnyRole("ADMIN", "STAFF")
+                    .requestMatchers(HttpMethod.DELETE, "/api/exam_periods/**").hasAnyRole("ADMIN", "STAFF")
+                    
                     .requestMatchers(HttpMethod.PUT, "/api/universities/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/universities/**").hasRole("ADMIN")
                     .requestMatchers("/api/users/**").authenticated()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                    // Dodato: Pravilo za novu ulogu STAFF
                     .requestMatchers("/api/staff/**").hasRole("STAFF")
                     
                     .requestMatchers("/api/student/**").authenticated()
