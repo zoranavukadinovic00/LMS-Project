@@ -54,16 +54,29 @@ public class StudyProgramAdminController {
     @PostMapping
     public ResponseEntity<StudyProgramDto> createStudyProgram(@RequestBody StudyProgramDto dto) {
         
+        System.out.println("LOG: Attempting to create Study Program. Received DTO:");
+        System.out.println("LOG: Name: " + dto.getName());
+        System.out.println("LOG: Faculty ID: " + dto.getFacultyId());
+        System.out.println("LOG: Manager ID: " + dto.getManagerId());
+
+
         // Provera da li su ID-evi validni (ne null i veći od 0)
         if (dto.getFacultyId() == null || dto.getFacultyId() <= 0 || dto.getManagerId() == null || dto.getManagerId() <= 0) {
+            System.err.println("ERROR: Missing or invalid Faculty ID (" + dto.getFacultyId() + ") or Manager ID (" + dto.getManagerId() + "). Returning BAD_REQUEST (400).");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         Faculty faculty = facultyService.findOne(dto.getFacultyId());
         User manager = userService.findOne(dto.getManagerId());
+        
+        System.out.println("LOG: Faculty found: " + (faculty != null));
+        System.out.println("LOG: Manager found: " + (manager != null));
+
 
         if (faculty == null || manager == null) {
             // Provera da li entiteti zaista postoje u bazi
+            String missingEntity = faculty == null ? "Faculty" : (manager == null ? "Manager" : "None");
+            System.err.println("ERROR: Dependent entity not found. Missing: " + missingEntity + ". Returning BAD_REQUEST (400).");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -77,10 +90,11 @@ public class StudyProgramAdminController {
         
         // 🚨 PROVERA: Da li je entitet dobio ID nakon snimanja (provera da li je snimanje uspelo)
         if (savedProgram == null || savedProgram.getId() == null) {
-            System.err.println("Database save failed: StudyProgram entity did not receive an ID.");
+            System.err.println("ERROR: Database save failed: StudyProgram entity did not receive an ID. Returning INTERNAL_SERVER_ERROR (500).");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
+        System.out.println("LOG: Study Program successfully created with ID: " + savedProgram.getId());
         return new ResponseEntity<>(new StudyProgramDto(savedProgram), HttpStatus.CREATED);
     }
 

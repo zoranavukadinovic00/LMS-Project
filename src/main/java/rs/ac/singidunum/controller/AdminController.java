@@ -10,12 +10,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping; // NOVI IMPORT
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import rs.ac.singidunum.dto.RegisterRequest; // NOVI IMPORT
 import rs.ac.singidunum.dto.UserDto;
 import rs.ac.singidunum.model.User;
 import rs.ac.singidunum.service.UserService;
@@ -27,6 +29,24 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    // NOVI ENDPOINT: POST za dodavanje novog korisnika
+    @PostMapping
+    public ResponseEntity<?> addNewUser(@Valid @RequestBody RegisterRequest req) {
+        try {
+            User newUser = userService.register(req);
+            if (newUser == null) {
+                // Korisnik sa tim korisničkim imenom već postoji
+                return new ResponseEntity<>("Korisnik sa tim korisničkim imenom već postoji.", HttpStatus.BAD_REQUEST);
+            }
+            // Vraćamo DTO, ako je potrebno, ali vraćanje User entiteta je takođe uobičajeno
+            return new ResponseEntity<>(new UserDto(newUser), HttpStatus.CREATED); 
+        } catch (Exception e) {
+            System.err.println("Greška prilikom dodavanja korisnika: " + e.getMessage());
+            return new ResponseEntity<>("Interna serverska greška prilikom kreiranja korisnika.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
