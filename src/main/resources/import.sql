@@ -150,24 +150,23 @@ UPDATE document_request SET completion_date = '2025-09-13 13:30:00', staff_id = 
 -- 17) ExamPeriod
 -- Kreiramo aktivan ispitni rok, npr. Septembarski 2025, koji traje od 01.10.2025 do 31.10.2025
 -- (Ovaj rok će biti vidljiv u aplikaciji)
-INSERT INTO exam_period (id, name, start_date, end_date) VALUES 
-(1, 'Septembarski 2025 - AKTIVAN', '2025-10-01 00:00:00', '2025-10-31 23:59:59');
+INSERT INTO exam_period (id, name, start_date, end_date) VALUES (1, 'Septembarski 2025 - AKTIVAN', '2025-10-01 00:00:00', '2025-10-31 23:59:59');
 
 -- Kreiramo neaktivan rok (neće biti vidljiv, za proveru filtriranja)
-INSERT INTO exam_period (id, name, start_date, end_date) VALUES 
-(2, 'Januarski 2025 - NEAKTIVAN', '2025-01-01 00:00:00', '2025-01-31 23:59:59');
+INSERT INTO exam_period (id, name, start_date, end_date) VALUES (2, 'Januarski 2025 - NEAKTIVAN', '2025-01-01 00:00:00', '2025-01-31 23:59:59');
+
+INSERT INTO exam_period (id, name, start_date, end_date) VALUES (3, 'Oktobarski 2025 - AKTIVAN', '2025-10-01 00:00:00', '2025-10-31 23:59:59');
 
 
 -- 18) ExamTerm (Termini se vezuju za ispite koji su studentu ENROLLED, npr. Mathematics 1 i Databases)
 
--- Termini za Mathematics 1 (course name = 'Mathematics 1', course_id=1) u AKTIVNOM ROKU (id=1)
-INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
-(1, 'Matematika 1 - Pismeni (15.10.)', '2025-10-15 10:00:00', 1, 'Mathematics 1', 2, 'A1'); 
+-- Mathematics 1
+INSERT INTO exam_term (id, name, exam_date, exam_period_id, course_id, professor_id, room_number) VALUES (1, 'Matematika 1 - Pismeni (15.10.)', '2025-10-15 10:00:00', 1, 1, 2, 'A1');
 
--- Termini za Databases (course name = 'Databases', course_id=3) u AKTIVNOM ROKU (id=1)
-INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
-(2, 'Baze podataka - Usmeni (20.10.)', '2025-10-20 14:00:00', 1, 'Databases', 3, 'B5'); 
+-- Databases
+INSERT INTO exam_term (id, name, exam_date, exam_period_id, course_id, professor_id, room_number) VALUES (2, 'Baze podataka - Usmeni (20.10.)', '2025-10-20 14:00:00', 1, 3, 3, 'B5');
 
--- Termin za Programming 1 (course name = 'Programming 1', course_id=2). Student1 je položio ovaj predmet (ocena 10), pa ga neće prijavljivati
-INSERT INTO exam_term (id, name, exam_date, period_id, course_name, professor_id, room_number) VALUES 
-(3, 'Programiranje 1 - Pismeni (25.10.)', '2025-10-25 12:00:00', 1, 'Programming 1', 2, 'C2');
+-- Programming 1
+INSERT INTO exam_term (id, name, exam_date, exam_period_id, course_id, professor_id, room_number) VALUES (3, 'Programiranje 1 - Pismeni (25.10.)', '2025-10-25 12:00:00', 1, 2, 2, 'C2');
+
+INSERT INTO exam_application (id, student_id, course_id, exam_term_id, status, points) VALUES (1, 1, 1, 1, 'APPLIED', 0);
